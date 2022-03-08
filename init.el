@@ -12,7 +12,8 @@
        doom
        doom-dashboard
        ;;doom-quit
-       ;;(emoji +unicode)
+       (emoji +unicode)
+       gitmoji
        ;;fill-column
        hl-todo
        ;;hydra
