@@ -94,6 +94,7 @@
        :os
        ;;arch
        (:if IS-MAC macos)
+       (:if IS-MAC mackey)
        ;;nixos
        ;;tty               ; enable terminal integration
 
