@@ -2,3 +2,4 @@ eshell/history
 eshell/lastdir
 *.elc
 custom.el
+user/

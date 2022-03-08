@@ -240,3 +240,5 @@
   '("alt" "Escape" "super" "bspc" "ctrl" "space" "shift") nil
   '("sxhkdrc") nil
   "Simple mode for sxhkdrc files.")
+
+(load! "user/setting.el")
