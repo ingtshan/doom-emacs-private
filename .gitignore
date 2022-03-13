@@ -3,3 +3,4 @@ eshell/lastdir
 *.elc
 custom.el
 user/
+flycheck_*
