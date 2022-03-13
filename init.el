@@ -65,7 +65,7 @@
        ;;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
        snippets
-       word-wrp
+       word-wrap
 
        :emacs
        (dired +icons)             ; making dired pretty [functional]

@@ -32,3 +32,24 @@
        "i" #'org-roam-node-insert
        "r" #'org-roam-node-find
        "R" #'org-roam-capture))
+;;; <leader> a --- action
+(map! :leader "c-" #'indent-whole-buffer)
+
+;;; feature
+(map! :v "K" #'drag-stuff-up)
+(map! :v "J" #'drag-stuff-down)
+(map! :nv "]g" #'git-gutter:next-hunk)
+(map! :nv "[g" #'git-gutter:previous-hunk)
+
+;;; <leader> a --- action
+(map! :leader
+      (:prefix-map ("a" . "action"))
+      :n "aa" #'embark-act
+      :n "a;" #'embark-dwim)
+
+;;; for ruby
+;;; <leader> m
+(map!
+      :localleader
+      :map ruby-mode-map
+      "-" 'rubocop-on-current-file)

@@ -2,22 +2,18 @@
 ;;;
 
 ;;
-;;; private setting and key binding
+;;; private setting
 (load! "user/setting")
-(load! "+evil-bindings")
+
+(load! "user/startup")
+
+(load! "user/editor-basic")
 
 ;; When I bring up Doom's scratch buffer with SPC x, it's often to play with
 ;; elisp or note something down (that isn't worth an entry in my notes). I can
 ;; do both in `lisp-interaction-mode'.
 (setq doom-scratch-initial-major-mode 'lisp-interaction-mode)
 
-
-;;
-;;; UI
-
-(setq doom-theme 'doom-dracula
-      doom-font (font-spec :family "JetBrainsMono" :size 12 :weight 'light)
-      doom-variable-pitch-font (font-spec :family "DejaVu Sans" :size 13))
 
 ;; Line numbers are pretty slow all around. The performance boost of disabling
 ;; them outweighs the utility of always keeping them on.
@@ -26,41 +22,18 @@
 ;; Prevents some cases of Emacs flickering.
 (add-to-list 'default-frame-alist '(inhibit-double-buffering . t))
 
-
 ;;
 ;;; Keybinds
 
-(map! (:after evil-org
-       :map evil-org-mode-map
-       :n "gk" (cmd! (if (org-on-heading-p)
-                         (org-backward-element)
-                       (evil-previous-visual-line)))
-       :n "gj" (cmd! (if (org-on-heading-p)
-                         (org-forward-element)
-                       (evil-next-visual-line))))
-
-      :o "o" #'evil-inner-symbol
-
-      :leader
-      "h L" #'global-keycast-mode
-      (:prefix "f"
-       "t" #'find-in-dotfiles
-       "T" #'browse-dotfiles)
-      (:prefix "n"
-       "b" #'org-roam-buffer-toggle
-       "d" #'org-roam-dailies-goto-today
-       "D" #'org-roam-dailies-goto-date
-       "e" (cmd! (find-file (doom-dir org-directory "ledger.gpg")))
-       "i" #'org-roam-node-insert
-       "r" #'org-roam-node-find
-       "R" #'org-roam-capture))
-
+(load! "user/+evil-bindings")
 
 ;;
 ;;; Modules
 
 ;;; :lang ruby
 (load! "user/ruby/rubocop")
+;; Setup Pry and Irb?
+
 
 ;;; :lang org
 (load! "user/org")
@@ -73,6 +46,7 @@
 (after! company
   (setq company-idle-delay nil))
 
+(load! "user/company")
 
 ;;; :ui modeline
 ;; An evil mode indicator is redundant with cursor shape
@@ -103,7 +77,7 @@
 
 
 ;;; :tools magit
-(setq magit-repository-directories '(("~/projects" . 2))
+(setq magit-repository-directories '(("~/code-base" . 2))
       magit-save-repository-buffers nil
       ;; Don't restore the wconf after quitting magit, it's jarring
       magit-inhibit-save-previous-winconf t
