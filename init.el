@@ -1,17 +1,31 @@
 ;;; ~/.doom.d/init.el -*- lexical-binding: t; -*-
 
+;; This file controls what Doom modules are enabled and what order they load
+;; in. Remember to run 'doom sync' after modifying it!
+
+;; NOTE Press 'SPC h d h' (or 'C-h d h' for non-vim users) to access Doom's
+;;      documentation. There you'll find a "Module Index" link where you'll find
+;;      a comprehensive list of Doom's modules and what flags they support.
+
+;; NOTE Move your cursor over a module's name (or its flags) and press 'K' (or
+;;      'C-c c k' for non-vim users) to view its documentation. This works on
+;;      flags as well (those symbols that start with a plus).
+;;
+;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
+;;      directory (for easy access to its source code).
+
 (doom! :completion
        (company +childframe)
        ;;ivy
        ;;helm
        ;;ido
-       vertico
+       (vertico +icons +posframe)
 
        :ui
        ;;deft
        doom
        doom-dashboard
-       ;;doom-quit
+       doom-quit
        (emoji +unicode)
        gitmoji
        ;;fill-column
@@ -21,7 +35,7 @@
        ;;ligatures
        ;;minimap
        modeline
-       ;;nav-flash
+       nav-flash
        ;;neotree
        ophints
        (popup +defaults)
@@ -30,10 +44,11 @@
        ;;unicode
        ;;tabs
        vc-gutter
-       ;;window-select
+       window-select
        workspaces
        zen
-       ;;vi-tilde-fringe
+       vi-tilde-fringe
+       workspaces
 
        :input
        ;;chinese
@@ -50,10 +65,10 @@
        ;;parinfer          ; turn lisp into python, sort of
        rotate-text       ; cycle region at point between text candidates
        snippets
-       ;;word-wrap
+       word-wrp
 
        :emacs
-       dired             ; making dired pretty [functional]
+       (dired +icons)             ; making dired pretty [functional]
        electric          ; smarter, keyword-based electric-indent
        ;;ibuffer           ; interactive buffer management
        undo
@@ -67,27 +82,28 @@
 
        :checkers
        syntax
-       spell
-       ;;grammar
+       ;; spell
+       grammar
 
        :tools
        ;;ansible
-       ;;(debugger +lsp)
+       (debugger +lsp)
        direnv
-       ;;docker
+       docker
        editorconfig      ; let someone else argue about tabs vs spaces
        ;;ein               ; tame Jupyter notebooks with emacs
        (eval +overlay)
        ;;gist
        (lookup +docsets +dictionary)
-       lsp
+       (lsp +peek +eglot)
        ;;macos             ; MacOS-specific commands
-       magit             ;
+       (magit +forge)             ;
        ;;make              ; run make tasks from Emacs
        ;;pass                ; password manager for nerds
        pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
-       ;;rgb               ; creating color strings
+       rgb               ; creating color strings
+       taskrunner
        ;;terraform         ; infrastructure as code
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
@@ -122,8 +138,9 @@
        ;;go
        ;;haskell
        ;;hy
+       json
        ;;(java +meghanada)
-       (javascript +lsp)
+       javascript
        ;;julia
        ;;latex
        ;;ledger
@@ -141,12 +158,13 @@
        ;;qt
        ;;racket
        rest
-       ruby
+       (ruby +rails +rbenv +lsp)
        (rust +lsp)
        ;;scala
        ;;(scheme +guile)
        sh
        ;;sml
+       solidity
        ;;swift
        web
        yaml
