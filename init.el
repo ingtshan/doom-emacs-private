@@ -122,7 +122,7 @@
        (cc +lsp)
        ;;crystal
        ;;clojure
-       ;;(csharp +unity +lsp)
+       (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
        common-lisp
        ;;coq
        ;;data
@@ -138,16 +138,16 @@
        ;;go
        ;;haskell
        ;;hy
-       json
+       (json +lsp)              ; At least it ain't XML
        ;;(java +meghanada)
-       javascript
+       (javascript +lsp)
        ;;julia
        ;;latex
        ;;ledger
        (lua +fennel)
        markdown
        ;;nim
-       nix
+       ;;nix
        ;;ocaml
        (org +dragndrop +roam2 +present)
        ;;perl
@@ -166,8 +166,8 @@
        ;;sml
        solidity
        ;;swift
-       web
-       yaml
+       (web +lsp)
+       (yaml +lsp)
 
        :email
        ;;(mu4e +gmail)       ; WIP
