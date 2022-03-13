@@ -1,6 +1,11 @@
-;;; ui/emoji/+gitmoji.el -*- lexical-binding: t; -*-
+;;; ui/gitmoji/config.el -*- lexical-binding: t; -*-
 
-(setq gitmoji-json-file (concat doom-emacs-dir ".local/straight/repos/insert-gitmoji.el" "/data/gitmojis.json" ))
+(setq gitmoji-json-file
+      (concat doom-emacs-dir
+              ".local/straight/repos/insert-gitmoji.el"
+              "/data/gitmojis.json" ))
+
+(use-package! insert-angular)
 
 (defun +gitmoji-angularmoji-insert ()
   (interactive)
@@ -9,6 +14,3 @@
          (input (concat type (unless (equal scope "") (format "(%s)" scope)) ": "))
          (emoji (gitmoji-completing-read (concat "(C-RET to skip) " input))))
     (insert input (unless (equal emoji "") (concat emoji " ")))))
-
-(map! :leader :desc "CZ angular with gitmoji" :g "ic" #'+gitmoji-angularmoji-insert)
-(map! :leader :desc "Gitmoji" :g "ig" #'gitmoji-insert-emoji)

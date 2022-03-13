@@ -242,3 +242,4 @@
   "Simple mode for sxhkdrc files.")
 
 (load! "user/setting.el")
+(load! "+evil-bindings.el")
