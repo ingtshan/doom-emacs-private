@@ -2350,4 +2350,4 @@ Version 2015-06-08"
 ;;; <leader> m
 (map! :localleader
       :map ruby-mode-map
-      "-" 'rubocop-on-current-file)
+      "=" 'rubocop-on-current-file)
