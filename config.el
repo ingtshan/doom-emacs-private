@@ -60,6 +60,11 @@
 (advice-add #'doom-modeline-segment--modals :override #'ignore)
 
 ;;; :editor evil
+;; ace-window
+(custom-set-faces
+ '(aw-leading-char-face
+   ((t (:inherit ace-jump-face-foreground :height 3.0)))))
+
 ;; Focus new window after splitting
 (setq evil-split-window-below t
       evil-vsplit-window-right t)
