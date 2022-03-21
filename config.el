@@ -74,6 +74,9 @@
 (setq evil-ex-substitute-global t)
 
 ;;; :tools lsp
+;;
+(setq lsp-vetur-ignore-project-warning t)
+
 ;; Disable invasive lsp-mode features
 (after! lsp-mode
   (setq lsp-enable-symbol-highlighting nil
@@ -2346,8 +2349,9 @@ Version 2015-06-08"
 (map! :leader "c-" #'indent-whole-buffer)
 
 ;;; <leader> a --- action
-(map! :leader
-      (:prefix-map ("a" . "action"))
+(map! :after embark
+      :leader
+      (:prefix-map ("a" . "actions"))
       :n "aa" #'embark-act
       :n "a;" #'embark-dwim)
 

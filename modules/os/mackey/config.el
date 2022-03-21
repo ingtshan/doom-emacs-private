@@ -16,6 +16,6 @@
 (global-set-key [(hyper q)] #'+mackey-quite-emacs); 退出
 (global-set-key [(hyper w)] #'+mackey-close-frame); 退出frame
 ;; make select more like other editro
-;; (delete-selection-mode 1)
+(delete-selection-mode 1)
 ;; use shift to extend select
-;; (global-set-key (kbd "<S-down-mouse-1>") #'mouse-save-then-kill)
+(global-set-key (kbd "<S-down-mouse-1>") #'mouse-save-then-kill)

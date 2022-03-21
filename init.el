@@ -95,7 +95,8 @@
        (eval +overlay)
        ;;gist
        (lookup +docsets +dictionary)
-       (lsp +eglot)
+       ;; (lsp +eglot )
+       (lsp +peek )
        ;;macos             ; MacOS-specific commands
        (magit +forge)             ;
        ;;make              ; run make tasks from Emacs
