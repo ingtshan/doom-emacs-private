@@ -2314,6 +2314,9 @@ Version 2015-06-08"
 
 (global-set-key (kbd "C-s") #'consult-line)
 
+(map! :leader "ii" 'rails-i18n-search-replace-regex-select-style)
+(map! :leader "sc" #'(lambda () (interactive) (unless (search-forward-regexp "\\cc") nil)) :desc "in chinese character")
+
 ;;; <leader> i --- insert
 (when (featurep! :ui gitmoji)
   (map! :leader :desc "CZ angular with gitmoji" :g "ic" #'+gitmoji-angularmoji-insert)
