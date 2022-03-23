@@ -24,5 +24,6 @@
 
 ;;; Code:
 
+(use-package! rails-i18n-search)
 
 ;;; config.el ends here
