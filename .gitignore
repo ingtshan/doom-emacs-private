@@ -4,3 +4,4 @@ eshell/lastdir
 custom.el
 user/setting.el
 flycheck_*
+user/local.el

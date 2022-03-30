@@ -2,6 +2,8 @@
 
 ;;; private setting
 (load! "user/setting")
+(if (file-exists-p "user/local.el")
+    (load! "user/local"))
 
 ;;; startup
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
