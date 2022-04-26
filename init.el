@@ -141,7 +141,7 @@
        ;;haskell
        ;;hy
        (json +lsp)              ; At least it ain't XML
-       ;;(java +meghanada)
+       (java +meghanada)
        (javascript +lsp)
        ;;julia
        ;;latex

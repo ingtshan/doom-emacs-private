@@ -2272,6 +2272,26 @@ Version 2015-06-08"
 
   (message "Ruby Docker Mode Activated."))
 
+;;; auto switch input method
+
+
+(use-package! sis
+  :config
+  (sis-ism-lazyman-config
+   "com.apple.keylayout.US"
+   ;; "com.apple.inputmethod.SCIM.ITABC"
+   "com.sogou.inputmethod.sogou.pinyin"
+   )
+  ;; enable the /cursor color/ mode
+  ;;(sis-global-cursor-color-mode t)
+  ;; enable the /respect/ mode
+  (sis-global-respect-mode t)
+  ;; enable the /context/ mode for all buffers
+  (sis-global-context-mode t)
+  ;; enable the /inline english/ mode for all buffers
+  ;;(sis-global-inline-mode t)
+  )
+
 ;;; key-binding
 
 ;;Get file name relative to projectile root
@@ -2349,6 +2369,13 @@ Version 2015-06-08"
 ;;        "i" #'org-roam-node-insert
 ;;        "r" #'org-roam-node-find
 ;;        "R" #'org-roam-capture))
+(map! :leader
+      (:prefix-map ("j" . "jump to localtion"))
+      :n "jl" #'link-hint-open-link-at-point
+      (:desc "jump to last capture" :n "jc" #'org-capture-goto-last-stored)
+      (:desc "C-o jump-backward" :n "jb" #'better-jumper-jump-backward)
+      (:desc "C-i jump-forward" :n "jf" #'better-jumper-jump-forward)
+      (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi))
 
 ;;; <leader> a --- action
 (map! :leader "c-" #'indent-whole-buffer)
