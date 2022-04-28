@@ -2372,10 +2372,16 @@ Version 2015-06-08"
 (map! :leader
       (:prefix-map ("j" . "jump to localtion"))
       :n "jl" #'link-hint-open-link-at-point
+      (:desc "jump to agenda todo" :n "jt" (lambda () (interactive) (org-agenda nil "t")
+))
       (:desc "jump to last capture" :n "jc" #'org-capture-goto-last-stored)
       (:desc "C-o jump-backward" :n "jb" #'better-jumper-jump-backward)
       (:desc "C-i jump-forward" :n "jf" #'better-jumper-jump-forward)
       (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi))
+
+(map! :leader
+      (:n "x" #'org-capture)
+      (:n "X" #'doom/open-scratch-buffer))
 
 ;;; <leader> a --- action
 (map! :leader "c-" #'indent-whole-buffer)
