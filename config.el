@@ -848,15 +848,6 @@ CONTROLLER-NAME: Path of controller.  ACTION:  Action of the path."
 (map! :after web-mode :map web-mode-map :nvi "C-j" #'web-mode-tag-next)
 (map! :after web-mode :map web-mode-map :nvi "C-k" #'web-mode-tag-previous)
 
-;; Fixing annoying lose of highlight
-(after! web-mode
-  (defun msc/save-and-revert-buffer ()
-    (interactive)
-    (call-interactively 'save-buffer)
-    (msc/revert-buffer-noconfirm))
-
-  (map! :mode web-mode-map :leader "j" 'msc/save-and-revert-buffer))
-
 (defun otavio/swap-arg-forward ()
   (interactive)
   (evil-exchange (nth 0 (evil-inner-arg)) (nth 1 (evil-inner-arg)))
@@ -2272,26 +2263,6 @@ Version 2015-06-08"
 
   (message "Ruby Docker Mode Activated."))
 
-;;; auto switch input method
-
-
-(use-package! sis
-  :config
-  (sis-ism-lazyman-config
-   "com.apple.keylayout.US"
-   ;; "com.apple.inputmethod.SCIM.ITABC"
-   "com.sogou.inputmethod.sogou.pinyin"
-   )
-  ;; enable the /cursor color/ mode
-  ;;(sis-global-cursor-color-mode t)
-  ;; enable the /respect/ mode
-  (sis-global-respect-mode t)
-  ;; enable the /context/ mode for all buffers
-  (sis-global-context-mode t)
-  ;; enable the /inline english/ mode for all buffers
-  ;;(sis-global-inline-mode t)
-  )
-
 ;;; key-binding
 
 ;;Get file name relative to projectile root
@@ -2369,8 +2340,7 @@ Version 2015-06-08"
 ;;        "i" #'org-roam-node-insert
 ;;        "r" #'org-roam-node-find
 ;;        "R" #'org-roam-capture))
-(map! :leader
-      (:prefix-map ("j" . "jump to localtion"))
+(map! (:prefix-map ("j" . "jump to localtion"))
       :n "jl" #'link-hint-open-link-at-point
       (:desc "jump to agenda todo" :n "jt" (lambda () (interactive) (org-agenda nil "t")
 ))
@@ -2379,9 +2349,18 @@ Version 2015-06-08"
       (:desc "C-i jump-forward" :n "jf" #'better-jumper-jump-forward)
       (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi))
 
+;; Fixing annoying lose of highlight
+(after! web-mode
+  (defun msc/save-and-revert-buffer ()
+    (interactive)
+    (call-interactively 'save-buffer)
+    (msc/revert-buffer-noconfirm))
+
+  (map! :mode web-mode-map :leader "jj" 'msc/save-and-revert-buffer))
+
 (map! :leader
-      (:n "x" #'org-capture)
-      (:n "X" #'doom/open-scratch-buffer))
+      (:desc "org capture" :n "x" #'org-capture)
+      (:desc "doom scratch buffer" :n "X" #'doom/open-scratch-buffer))
 
 ;;; <leader> a --- action
 (map! :leader "c-" #'indent-whole-buffer)
