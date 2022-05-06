@@ -1680,6 +1680,7 @@ CONTROLLER-NAME: Path of controller.  ACTION:  Action of the path."
     "RUBOCOP ON CURRENT_FILE."
     (interactive)
     (save-buffer)
+    (message "rubocop on current_file")
     (message "%s" (shell-command-to-string
                    (concat rubocop-on-current-file-command
                            (shell-quote-argument (buffer-file-name)))))
@@ -2362,6 +2363,8 @@ Version 2015-06-08"
 (map! :leader
       (:desc "org capture" :n "x" #'org-capture)
       (:desc "doom scratch buffer" :n "X" #'doom/open-scratch-buffer))
+
+(map! :leader :n "-" (lambda () (interactive) (message "do vertico-posframe-cleanup") (vertico-posframe-cleanup)))
 
 ;;; <leader> a --- action
 (map! :leader "c-" #'indent-whole-buffer)
