@@ -2340,7 +2340,8 @@ Version 2015-06-08"
 ;;        "i" #'org-roam-node-insert
 ;;        "r" #'org-roam-node-find
 ;;        "R" #'org-roam-capture))
-(map! (:prefix-map ("j" . "jump to localtion"))
+(map! :leader
+      (:prefix-map ("j" . "jump to localtion"))
       :n "jl" #'link-hint-open-link-at-point
       (:desc "jump to agenda todo" :n "jt" (lambda () (interactive) (org-agenda nil "t")
 ))
