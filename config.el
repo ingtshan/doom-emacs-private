@@ -98,6 +98,15 @@
       transient-values '((magit-rebase "--autosquash" "--autostash")
                          (magit-pull "--rebase" "--autostash")
                          (magit-revert "--autostash")))
+ ;; Protect against accidental pushes to upstream
+ (define-advice magit-push-current-to-upstream (:before (args) query-yes-or-no)
+   "Prompt for confirmation before permitting a push to upstream."
+   (when-let ((branch (magit-get-current-branch)))
+     (unless (yes-or-no-p (format "Push %s branch upstream to %s? "
+				   branch
+				   (or (magit-get-upstream-branch branch)
+				       (magit-get "branch" branch "remote"))))
+	(user-error "Push to upstream aborted by user"))))
 
 ;;; :ui doom-dashboard
 (setq fancy-splash-image (concat doom-private-dir "splash.png"))
@@ -2349,7 +2358,12 @@ Version 2015-06-08"
       (:desc "jump to last capture" :n "jc" #'org-capture-goto-last-stored)
       (:desc "C-o jump-backward" :n "jb" #'better-jumper-jump-backward)
       (:desc "C-i jump-forward" :n "jf" #'better-jumper-jump-forward)
-      (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi))
+      (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi)
+      (:desc "jump to magit note" :n "jn"
+       (lambda () (interactive)
+         (let ((magit-todos-keywords-list
+                '("HACK" "REVIEW")))
+               (call-interactively #'magit-todos-list)))))
 
 ;; Fixing annoying lose of highlight
 (after! web-mode
