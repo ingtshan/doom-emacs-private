@@ -100,14 +100,14 @@
                          (magit-revert "--autostash")));; Protect against accidental pushes to upstream
 (define-advice magit-push-current-to-upstream (:before (args) query-yes-or-no)
   "Prompt for confirmation before permitting a push to upstream."
-  (let ((up-stream (or (magit-get-upstream-branch branch)
-		       (magit-get "branch" branch "remote"))))
+  (when-let ((branch (magit-get-current-branch))
+             (up-stream (or (magit-get-upstream-branch branch)
+		            (magit-get "branch" branch "remote"))))
     (when (string-match-p "develop\\|main\\|master" up-stream)
-      (when-let ((branch (magit-get-current-branch)))
-        (unless (yes-or-no-p (format "Push %s branch upstream to %s? "
-				     branch
-				     up-stream))
-	  (user-error "Push to upstream aborted by user"))))))
+      (unless (yes-or-no-p (format "Push %s branch upstream to %s? "
+				   (magit--propertize-face branch 'magit-branch-local)
+				   up-stream))
+	(user-error "Push to upstream aborted by user")))))
 
 ;;; :ui doom-dashboard
 (setq fancy-splash-image (concat doom-private-dir "splash.png"))
