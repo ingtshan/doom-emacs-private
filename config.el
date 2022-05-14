@@ -2357,14 +2357,29 @@ Version 2015-06-08"
       (:desc "jump to agenda todo" :n "jt" (lambda () (interactive) (org-agenda nil "t")
 ))
       (:desc "jump to last capture" :n "jc" #'org-capture-goto-last-stored)
-      (:desc "C-o jump-backward" :n "jb" #'better-jumper-jump-backward)
-      (:desc "C-i jump-forward" :n "jf" #'better-jumper-jump-forward)
+      (:desc "search all crurrent project buffer" :n "js" #'consult-line-multi)
       (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi)
       (:desc "jump to magit note" :n "jn"
        (lambda () (interactive)
          (let ((magit-todos-keywords-list
                 '("HACK" "REVIEW")))
                (call-interactively #'magit-todos-list)))))
+
+(defun isc/project-remove-todos-line (keyword)
+  (interactive
+   (list (completing-read
+          "Insert keyword: "
+          (cl-mapcan (pcase-lambda (`(,keyword . ,face))
+                       (and (equal (regexp-quote keyword) keyword)
+                            (list (propertize keyword 'face
+                                              (hl-todo--combine-face face)))))
+                     hl-todo-keyword-faces))))
+  (if (executable-find "rg")
+      (let ((cmd
+             (format "cd %s && rg \" %s\\b\" --files-with-matches | while read -r File; do echo \"Remove %s from $File\" ; rg -v \" %s\\b\" $File > $File.tmp; mv $File.tmp $File; done
+" (projectile-acquire-root) keyword keyword keyword)))
+        (async-shell-command cmd "*Clean TODOS*"))
+    (message "Ripgrep is not available")))
 
 ;; Fixing annoying lose of highlight
 (after! web-mode
