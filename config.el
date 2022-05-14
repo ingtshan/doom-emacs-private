@@ -2351,21 +2351,16 @@ Version 2015-06-08"
 ;;        "i" #'org-roam-node-insert
 ;;        "r" #'org-roam-node-find
 ;;        "R" #'org-roam-capture))
-(map! :leader
-      (:prefix-map ("j" . "jump to localtion"))
-      :n "jl" #'link-hint-open-link-at-point
-      (:desc "jump to agenda todo" :n "jt" (lambda () (interactive) (org-agenda nil "t")
-))
-      (:desc "jump to last capture" :n "jc" #'org-capture-goto-last-stored)
-      (:desc "search all crurrent project buffer" :n "js" #'consult-line-multi)
-      (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi)
-      (:desc "jump to magit note" :n "jn"
-       (lambda () (interactive)
-         (let ((magit-todos-keywords-list
-                '("HACK" "REVIEW")))
-               (call-interactively #'magit-todos-list)))))
+
+(defun isc/project-todo-insert ()
+  "insert hl-todo-key and mark it as comment"
+    (interactive
+     (list
+      (call-interactively #'hl-todo-insert-keyword)))
+  (call-interactively #'evilnc-comment-or-uncomment-lines))
 
 (defun isc/project-remove-todos-line (keyword)
+  "remove line which include `keyword' whithin all projectile files"
   (interactive
    (list (completing-read
           "Insert keyword: "
@@ -2380,6 +2375,21 @@ Version 2015-06-08"
 " (projectile-acquire-root) keyword keyword keyword)))
         (async-shell-command cmd "*Clean TODOS*"))
     (message "Ripgrep is not available")))
+
+(map! :leader "it" #'isc/project-todo-insert :desc "project todo insert")
+(map! :leader
+      (:prefix-map ("j" . "jump to localtion"))
+      :n "jl" #'link-hint-open-link-at-point
+      (:desc "jump to agenda todo" :n "jt" (lambda () (interactive) (org-agenda nil "t")
+))
+      (:desc "jump to last capture" :n "jc" #'org-capture-goto-last-stored)
+      (:desc "search all crurrent project buffer" :n "js" #'consult-line-multi)
+      (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi)
+      (:desc "jump to magit note" :n "jn"
+       (lambda () (interactive)
+         (let ((magit-todos-keywords-list
+                '("HACK" "REVIEW")))
+               (call-interactively #'magit-todos-list)))))
 
 ;; Fixing annoying lose of highlight
 (after! web-mode
