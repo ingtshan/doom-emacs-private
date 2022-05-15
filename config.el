@@ -2352,12 +2352,20 @@ Version 2015-06-08"
 ;;        "r" #'org-roam-node-find
 ;;        "R" #'org-roam-capture))
 
-(defun isc/project-todo-insert ()
+(defun isc/project-todo-insert (key)
   "insert hl-todo-key and mark it as comment"
-    (interactive
-     (list
-      (call-interactively #'hl-todo-insert-keyword)))
-  (call-interactively #'evilnc-comment-or-uncomment-lines))
+  (interactive
+   (list
+    (call-interactively #'hl-todo-insert-keyword)))
+  (unless (boundp 'isc/memo--history)
+    (setq isc/memo--history (list "范围提示")))
+  (let ((memo (completing-read "Memo: " isc/memo--history)))
+    (unless (member memo isc/memo--history)
+    (add-to-list 'isc/memo--history memo))
+    (backward-delete-char-untabify 1)
+    (insert (format "(%s)" memo)))
+  ;; (call-interactively #'evilnc-comment-or-uncomment-lines)
+  )
 
 (defun isc/project-remove-todos-line (keyword)
   "remove line which include `keyword' whithin all projectile files"
@@ -2404,7 +2412,7 @@ Version 2015-06-08"
       (:desc "org capture" :n "x" #'org-capture)
       (:desc "doom scratch buffer" :n "X" #'doom/open-scratch-buffer))
 
-(map! :leader :n "-" (lambda () (interactive) (message "do vertico-posframe-cleanup") (vertico-posframe-cleanup)))
+(map! :leader :n "0" (lambda () (interactive) (message "do vertico-posframe-cleanup") (vertico-posframe-cleanup)))
 
 ;;; <leader> a --- action
 (map! :leader "c-" #'indent-whole-buffer)
