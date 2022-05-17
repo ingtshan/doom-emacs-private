@@ -2384,7 +2384,30 @@ Version 2015-06-08"
         (async-shell-command cmd "*Clean TODOS*"))
     (message "Ripgrep is not available")))
 
-(map! :leader "it" #'isc/project-todo-insert :desc "project todo insert")
+(defun isc/inglive-set-note-title (&optional heading)
+  "Edit the current headline.
+Set it to HEADING when provided."
+  (interactive
+   (unless (derived-mode-p 'org-mode)
+                 (user-error "Must be called from an Org buffer")))
+  (org-with-wide-buffer
+   (org-back-to-heading t)
+   (let ((case-fold-search nil))
+     (when (looking-at org-complex-heading-regexp)
+       (let* ((old (match-string-no-properties 4))
+	      (new (save-match-data
+		     (org-trim (or heading (completing-read (concat old " -> ") nil))))))
+	 (unless (equal old new)
+	   (if old (replace-match new t t nil 4)
+	     (goto-char (or (match-end 3) (match-end 2) (match-end 1)))
+	     (insert " " new))
+	   (org-align-tags)
+	   (when (looking-at "[ \t]*$") (replace-match ""))))))))
+
+(map! :leader :desc "project todo insert" :n "it" #'isc/project-todo-insert)
+(map! :leader
+      (:prefix-map ("ne" . "Editing note" ))
+      (:desc "Editing heading" :n "neh" #'isc/inglive-set-note-title))
 (map! :leader
       (:prefix-map ("j" . "jump to localtion"))
       :n "jl" #'link-hint-open-link-at-point
@@ -2393,6 +2416,7 @@ Version 2015-06-08"
       (:desc "jump to last capture" :n "jc" #'org-capture-goto-last-stored)
       (:desc "search all crurrent project buffer" :n "js" #'consult-line-multi)
       (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi)
+      (:desc "jump to opended buffer" :n "jb" #'consult-buffer)
       (:desc "jump to magit note" :n "jn"
        (lambda () (interactive)
          (let ((magit-todos-keywords-list
