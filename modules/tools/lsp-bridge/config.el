@@ -31,6 +31,7 @@
 
 ;; (global-corfu-mode)               ;; use corfu as completion ui
 ;; (global-lsp-bridge-mode)
+
 ;;; Require
 (after! corfu
 
@@ -78,9 +79,11 @@
                    )
                   'equal)
                  ))
-     (append completion-at-point-functions
-        (mapcar #'cape-company-to-capf
-                (list #'company-dabbrev #'company-keywords #'company-etags))))
+    (append completion-at-point-functions
+            (list
+             (cape-company-to-capf
+              (apply-partially #'company--multi-backend-adapter
+                               (list #'company-dabbrev #'company-keywords #'company-etags))))))
 
   (dolist (hook lsp-bridge-default-mode-hooks)
     (add-hook hook (lambda ()
