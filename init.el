@@ -15,11 +15,13 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :completion
-       (company +childframe)
+       ;; (company +childframe)
+       ;; company
        ;;ivy
        ;;helm
        ;;ido
        (vertico +icons +posframe)
+       corfu
 
        :ui
        ;;deft
@@ -87,7 +89,8 @@
 
        :tools
        ;;ansible
-       (debugger +lsp)
+       ;; (debugger +lsp)
+       debugger
        direnv
        docker
        editorconfig      ; let someone else argue about tabs vs spaces
@@ -96,7 +99,8 @@
        ;;gist
        (lookup +docsets +dictionary)
        ;; (lsp +eglot )
-       (lsp +peek )
+       ;; (lsp +peek )
+       lsp-bridge
        ;;macos             ; MacOS-specific commands
        (magit +forge)             ;
        ;;make              ; run make tasks from Emacs
@@ -121,10 +125,11 @@
        ;;agda
        ;;assembly
        beancount
-       (cc +lsp)
+       ;; (cc +lsp)
+       cc
        ;;crystal
        ;;clojure
-       (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
+       ;; (csharp +lsp +dotnet)            ; unity, .NET, and mono shenanigans
        common-lisp
        ;;coq
        ;;data
@@ -140,9 +145,11 @@
        ;;go
        ;;haskell
        ;;hy
-       (json +lsp)              ; At least it ain't XML
+       ;; (json +lsp)              ; At least it ain't XML
+       json
        (java +meghanada)
-       (javascript +lsp)
+       ;; (javascript +lsp)
+       (javascript)
        ;;julia
        ;;latex
        ;;ledger
@@ -156,20 +163,25 @@
        ;;php
        ;;plantuml
        ;;purescript
-       (python +lsp)
+       ;; (python +lsp)
+       (python)
        ;;qt
        ;;racket
        rest
-       (ruby +rails +rbenv +lsp)
-       (rust +lsp)
+       ;; (ruby +rails +rbenv +lsp)
+       (ruby +rails +rbenv)
+       ;; (rust +lsp)
+       (rust)
        ;;scala
        ;;(scheme +guile)
        sh
        ;;sml
        solidity
        ;;swift
-       (web +lsp)
-       (yaml +lsp)
+       ;; (web +lsp)
+       web
+       ;; (yaml +lsp)
+       yaml
 
        :email
        ;;(mu4e +gmail)       ; WIP
