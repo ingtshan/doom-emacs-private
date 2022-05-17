@@ -27,5 +27,5 @@
 (package! org-reveal)
 (package! noccur)
 (package! orgit)
-
+(package! sis)
 (package! super-save)
