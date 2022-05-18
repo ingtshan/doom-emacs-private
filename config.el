@@ -2434,6 +2434,21 @@ Set it to HEADING when provided."
 	   (org-align-tags)
 	   (when (looking-at "[ \t]*$") (replace-match ""))))))))
 
+;; ebuku
+(use-package! ebuku
+  :init
+  (evil-collection-init 'ebuku)
+  (load "ebuku")
+  :config
+  (defun isc/ebuku ()
+    (interactive)
+      (if (get-buffer "*Ebuku*")
+      (switch-to-buffer-other-window "*Ebuku*")
+      (progn
+        (switch-to-buffer-other-window "*scratch*")
+        (call-interactively 'ebuku)))
+    ))
+
 (map! :leader :desc "project todo insert" :n "it" #'isc/project-todo-insert)
 (map! :leader
       (:prefix-map ("ne" . "Editing note" ))
@@ -2447,6 +2462,7 @@ Set it to HEADING when provided."
       (:desc "search all crurrent project buffer" :n "js" #'consult-line-multi)
       (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi)
       (:desc "jump to opended buffer" :n "jb" #'consult-buffer)
+      (:desc "jump to ebuku my web bookmark" :n "je" #'isc/ebuku)
       (:desc "jump to magit note" :n "jn"
        (lambda () (interactive)
          (let ((magit-todos-keywords-list

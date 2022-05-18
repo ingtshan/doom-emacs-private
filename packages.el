@@ -29,3 +29,6 @@
 (package! orgit)
 (package! sis)
 (package! super-save)
+(package! ebuku
+  :recipe (:host github
+           :repo "flexibeast/ebuku"))
