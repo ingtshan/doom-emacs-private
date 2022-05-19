@@ -13,15 +13,13 @@
 ;;
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
-
 (doom! :completion
-       ;; (company +childframe)
-       ;; company
+       (company +childframe)
        ;;ivy
        ;;helm
        ;;ido
        (vertico +icons +posframe)
-       corfu
+       ;; corfu
 
        :ui
        ;;deft
