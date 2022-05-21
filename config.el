@@ -2478,10 +2478,6 @@ Set it to HEADING when provided."
 
   (map! :mode web-mode-map :leader "jj" 'msc/save-and-revert-buffer))
 
-(map! :leader
-      (:desc "org capture" :n "x" #'org-capture)
-      (:desc "doom scratch buffer" :n "X" #'doom/open-scratch-buffer))
-
 (map! :leader :n "0" (lambda () (interactive) (message "do vertico-posframe-cleanup") (vertico-posframe-cleanup)))
 
 ;;; <leader> a --- action
