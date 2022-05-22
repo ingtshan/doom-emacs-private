@@ -2379,7 +2379,7 @@ Version 2015-06-08"
   ;; enable the /context/ mode for all buffers
   (sis-global-context-mode t)
   ;; enable the /inline english/ mode for all buffers
-  (sis-global-inline-mode t)
+  ;; (sis-global-inline-mode t)
   )
 
 (defun isc/project-todo-insert (key)
