@@ -20,60 +20,83 @@
 
 ;;; Commentary:
 
-;; my tool
-
 ;;; Code:
 
-;; (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/lsp-bridge")
-;; (require 'lsp-bridge)             ;; load lsp-bridge
-;; (require 'lsp-bridge-orderless)   ;; make lsp-bridge support fuzzy match, optional
-;; (require 'lsp-bridge-icon)        ;; show icon for completion items, optional
+;; corfu
+(add-to-list 'load-path "~/.emacs.d/.local/straight/repos/corfu/extensions")
+(require 'corfu)
+(require 'corfu-history)
+(require 'cape)
 
-;; (global-corfu-mode)               ;; use corfu as completion ui
-;; (global-lsp-bridge-mode)
+;; lsp-bridge
+(add-to-list 'load-path "~/.emacs.d/.local/straight/repos/lsp-bridge")
 
-;;; Require
-(after! company
-  (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/lsp-bridge")
-  ;; (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/corfu/extensions")
-  ;; (require 'corfu)
-  ;; (require 'corfu-info)
-  ;; (require 'cape)
-  (setq lsp-bridge-completion-provider 'company)
+(require 'lsp-bridge)
+(require 'lsp-bridge-icon)
+(require 'lsp-bridge-orderless)
+(require 'lsp-bridge-jdtls)
 
-  (require 'lsp-bridge)
-  (require 'lsp-bridge-orderless) ;; make lsp-bridge support fuzzy match, optional
-  (require 'lsp-bridge-icon) ;; show icon for completion items, optional
+;; 默认用这三个补全后端
+(add-to-list 'completion-at-point-functions #'cape-symbol)
+(add-to-list 'completion-at-point-functions #'cape-file)
+(add-to-list 'completion-at-point-functions #'cape-dabbrev)
 
-  ;; 融合 `lsp-bridge' `find-function' 以及 `dumb-jump' 的智能跳转
-  (defun lsp-bridge-jump ()
-    (interactive)
-    (cond
-     ((eq major-mode 'emacs-lisp-mode)
-      (let ((symb (function-called-at-point)))
-        (when symb
-          (find-function symb))))
-     (lsp-bridge-mode
-      (lsp-bridge-find-def))
-     (t
-      (require 'dumb-jump)
-      (dumb-jump-go))))
+;; 让Corfu适应高分屏
+(when (> (frame-pixel-width) 3000) (custom-set-faces '(corfu-default ((t (:height 1.3))))))
 
-  (defun lsp-bridge-jump-back ()
-    (interactive)
-    (cond
-     (lsp-bridge-mode
-      (lsp-bridge-return-from-def))
-     (t
-      (require 'dumb-jump)
-      (dumb-jump-back))))
+;; 开启 history mode
+(corfu-history-mode t)
 
-  (global-lsp-bridge-mode)
+(global-lsp-bridge-mode)
 
-  ;; For Xref support
-  (add-hook 'lsp-bridge-mode-hook (lambda ()
-                                    (add-hook 'xref-backend-functions #'lsp-bridge-xref-backend nil t)))
-  )
-;; (provide 'init-lsp-bridge)
-;;
+(global-corfu-mode)
+
+;; 融合 `lsp-bridge' `find-function' 以及 `dumb-jump' 的智能跳转
+(defun lsp-bridge-jump ()
+  (interactive)
+  (cond
+   ((eq major-mode 'emacs-lisp-mode)
+    (let ((symb (function-called-at-point)))
+      (when symb
+        (find-function symb))))
+   (lsp-bridge-mode
+    (lsp-bridge-find-def))
+   (t
+    (require 'dumb-jump)
+    (dumb-jump-go))))
+
+(defun lsp-bridge-jump-back ()
+  (interactive)
+  (cond
+   (lsp-bridge-mode
+    (lsp-bridge-return-from-def))
+   (t
+    (require 'dumb-jump)
+    (dumb-jump-back))))
+
+;; (require 'tabnine-capf)
+
+;; 通过Cape融合不同的补全后端，比如lsp-bridge、 tabnine、 file、 dabbrev.
+(defun lsp-bridge-mix-multi-backends ()
+  (setq-local completion-category-defaults nil)
+  (setq-local completion-at-point-functions
+              (list
+               (cape-capf-buster
+                (cape-super-capf
+                 #'lsp-bridge-capf
+
+                 ;; 我嫌弃TabNine太占用我的CPU了， 需要的同学注释下面这一行就好了
+                 ;; #'tabnine-completion-at-point
+
+                 #'cape-file
+                 #'cape-dabbrev
+                 )
+                'equal)
+               )))
+
+(dolist (hook lsp-bridge-default-mode-hooks)
+  (add-hook hook (lambda ()
+                   (lsp-bridge-mix-multi-backends) ; 通过Cape融合多个补全后端
+                   )))
+
 ;;; config.el ends here

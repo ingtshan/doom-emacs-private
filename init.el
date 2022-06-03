@@ -14,7 +14,7 @@
 ;;      Alternatively, press 'gd' (or 'C-c c d') on a module to browse its
 ;;      directory (for easy access to its source code).
 (doom! :completion
-       (company +childframe)
+       ;; (company +childframe)
        ;;ivy
        ;;helm
        ;;ido
@@ -111,6 +111,7 @@
        ;;tmux              ; an API for interacting with tmux
        ;;upload            ; map local to remote projects via ssh/ftp
        i18n
+       ;; pim                 ; personal information management
 
        :os
        ;;arch

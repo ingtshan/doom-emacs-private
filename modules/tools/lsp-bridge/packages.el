@@ -24,6 +24,8 @@
 
 ;;; Code:
 (package! corfu)
+(package! corfu-doc)
+(package! cape)
 (package! all-the-icons)
 (package! orderless)
 (package! posframe)
