@@ -82,7 +82,7 @@
 
        :checkers
        syntax
-       ;; spell
+       (spell +flyspell +aspell)
        grammar
 
        :tools
@@ -157,7 +157,8 @@
        ;;nim
        ;;nix
        ;;ocaml
-       (org +dragndrop +roam2 +present)
+       ;; (org +dragndrop +roam2 +present)
+       (org +dragndrop +present)
        ;;perl
        ;;php
        ;;plantuml
@@ -196,4 +197,9 @@
 
        :config
        ;;literate
-       (default +bindings +smartparens))
+       (default +bindings +smartparens)
+
+       :private
+       playground
+
+       ) ;; end of doom!

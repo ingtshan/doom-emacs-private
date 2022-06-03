@@ -2495,3 +2495,14 @@ Set it to HEADING when provided."
 (map! :localleader
       :map ruby-mode-map
       "=" 'rubocop-on-current-file)
+
+(remove-hook! '(org-mode-hook
+                markdown-mode-hook
+                TeX-mode-hook
+                rst-mode-hook
+                mu4e-compose-mode-hook
+                message-mode-hook
+                git-commit-mode-hook)
+  #'flyspell-mode)
+
+(ispell-change-dictionary "english")
