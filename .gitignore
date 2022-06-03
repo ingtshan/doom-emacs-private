@@ -5,3 +5,4 @@ custom.el
 user/setting.el
 flycheck_*
 user/local.el
+/modules/private
