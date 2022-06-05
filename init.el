@@ -158,7 +158,7 @@
        ;;nix
        ;;ocaml
        ;; (org +dragndrop +roam2 +present)
-       (org +dragndrop +present)
+       (org +dragndrop +present +journal)
        ;;perl
        ;;php
        ;;plantuml
@@ -200,6 +200,8 @@
        (default +bindings +smartparens)
 
        :private
+       ;; journal
        playground
+       ;; (lsp-bridge +acm)
 
        ) ;; end of doom!

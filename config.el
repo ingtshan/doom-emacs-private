@@ -2377,7 +2377,7 @@ Version 2015-06-08"
   ;; enable the /respect/ mode
   (sis-global-respect-mode t)
   ;; enable the /context/ mode for all buffers
-  (sis-global-context-mode t)
+  ;; (sis-global-context-mode t)
   ;; enable the /inline english/ mode for all buffers
   ;; (sis-global-inline-mode t)
   )
