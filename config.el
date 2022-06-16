@@ -2392,7 +2392,7 @@ Version 2015-06-08"
   (let ((memo (completing-read "Memo: " isc/memo--history)))
     (unless (member memo isc/memo--history)
     (add-to-list 'isc/memo--history memo))
-    (backward-delete-char-untabify 1)
+    ;; (backward-delete-char-untabify 1)
     (insert (format "(%s)" memo)))
   ;; (call-interactively #'evilnc-comment-or-uncomment-lines)
   )
