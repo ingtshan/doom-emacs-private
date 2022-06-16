@@ -2453,21 +2453,6 @@ Set it to HEADING when provided."
 (map! :leader
       (:prefix-map ("ne" . "Editing note" ))
       (:desc "Editing heading" :n "neh" #'isc/inglive-set-note-title))
-(map! :leader
-      (:prefix-map ("j" . "jump to localtion"))
-      :n "jl" #'link-hint-open-link-at-point
-      (:desc "jump to agenda todo" :n "jt" (lambda () (interactive) (org-agenda nil "t")
-))
-      (:desc "jump to last capture" :n "jc" #'org-capture-goto-last-stored)
-      (:desc "search all crurrent project buffer" :n "js" #'consult-line-multi)
-      (:desc "imenu all current project buffer" :n "ji" #'consult-imenu-multi)
-      (:desc "jump to opended buffer" :n "jb" #'consult-buffer)
-      (:desc "jump to ebuku my web bookmark" :n "je" #'isc/ebuku)
-      (:desc "jump to magit note" :n "jn"
-       (lambda () (interactive)
-         (let ((magit-todos-keywords-list
-                '("HACK" "REVIEW" "inglive::待定")))
-               (call-interactively #'magit-todos-list)))))
 
 ;; Fixing annoying lose of highlight
 (after! web-mode
