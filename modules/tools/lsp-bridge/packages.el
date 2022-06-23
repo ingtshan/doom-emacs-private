@@ -30,6 +30,7 @@
 (package! orderless)
 (package! posframe)
 (package! markdown-mode)
+(package! yasnippet)
 (package! lsp-bridge
   :recipe (:host github
            :repo "manateelazycat/lsp-bridge"))

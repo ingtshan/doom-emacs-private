@@ -27,9 +27,11 @@
 ;; lsp-bridge
 (add-to-list 'load-path "~/.emacs.d/.local/straight/repos/lsp-bridge")
 
+(require 'yasnippet)
 (require 'lsp-bridge)
 ;; (require 'lsp-bridge-jdtls)
 
+(yas-global-mode 1)
 (global-lsp-bridge-mode)
 
 (defun lsp-bridge-jump ()
