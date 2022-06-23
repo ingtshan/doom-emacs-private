@@ -2461,7 +2461,7 @@ Set it to HEADING when provided."
     (call-interactively 'save-buffer)
     (msc/revert-buffer-noconfirm))
 
-  (map! :mode web-mode-map :leader "jj" 'msc/save-and-revert-buffer))
+  (map! :mode web-mode-map :leader "jr" 'msc/save-and-revert-buffer))
 
 (map! :leader :n "0" (lambda () (interactive) (message "do vertico-posframe-cleanup") (vertico-posframe-cleanup)))
 
