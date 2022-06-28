@@ -158,7 +158,7 @@
        ;;nix
        ;;ocaml
        ;; (org +dragndrop +roam2 +present)
-       (org +dragndrop +present +journal)
+       (org +dragndrop +present +journal +hugo)
        ;;perl
        ;;php
        ;;plantuml
