@@ -202,6 +202,7 @@
        :private
        ;; journal
        playground
+       denote
        ;; (lsp-bridge +acm)
 
        ) ;; end of doom!
