@@ -2450,9 +2450,6 @@ Set it to HEADING when provided."
     ))
 
 (map! :leader :desc "project todo insert" :n "it" #'isc/project-todo-insert)
-(map! :leader
-      (:prefix-map ("ne" . "Editing note" ))
-      (:desc "Editing heading" :n "neh" #'isc/inglive-set-note-title))
 
 ;; Fixing annoying lose of highlight
 (after! web-mode
