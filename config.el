@@ -2279,7 +2279,11 @@ Version 2015-06-08"
 ;;Get file name relative to projectile root
 (map! :leader "pn"
       #'(lambda () (interactive)
-          (let ((rpath (file-relative-name buffer-file-name doom-modeline--project-root)))
+          (let ((rpath
+                 (concat (projectile-project-name)
+                         ": "
+                         (file-relative-name buffer-file-name doom-modeline--project-root))))
+            (org-store-link 64)
             (kill-new rpath)
             (message (concat "kill-ring save: " rpath) ))))
 
