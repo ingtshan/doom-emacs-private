@@ -32,4 +32,4 @@
 (package! ebuku
   :recipe (:host github
            :repo "flexibeast/ebuku"))
-(package! dirvish)
+;;(package! dirvish)

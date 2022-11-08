@@ -48,7 +48,6 @@
        workspaces
        zen
        vi-tilde-fringe
-       workspaces
 
        :input
        ;;chinese

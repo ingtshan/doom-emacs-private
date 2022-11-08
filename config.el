@@ -1,5 +1,7 @@
 ;;; ~/.config/doom/config.el -*- lexical-binding: t; -*-
 
+(setq debug-on-error t)
+
 ;;; private setting
 (load! "user/setting")
 (if (file-exists-p "~/.config/doom/user/local.el")
@@ -661,9 +663,9 @@ CONTROLLER-NAME: Path of controller.  ACTION:  Action of the path."
 ;; (rails-i18n-global-mode)
 (rails-routes-global-mode)
 
-(when (eq doom-theme 'doom-one)
-  (custom-set-faces
-   '(line-number ((t (:inherit default :foreground "gray40" :strike-through nil :underline nil :slant normal :weight normal))))))
+;; (when (eq doom-theme 'doom-one)
+;;  (custom-set-faces
+;;   '(line-number ((t (:inherit default :foreground "gray40" :strike-through nil :underline nil :slant normal :weight normal))))))
 
 ;; (when (not (file-exists-p "~/.pryrc")) (shell-command "cp ~/.doom.d/.pry-example ~/.pryrc"))
 ;; (if (not (file-exists-p "~/.irbrc")) (shell-command "cp ~/.doom.d/.irbrc-example ~/.irbrc"))
@@ -1696,8 +1698,7 @@ CONTROLLER-NAME: Path of controller.  ACTION:  Action of the path."
                            (shell-quote-argument (buffer-file-name)))))
     (msc/revert-buffer-noconfirm))
 
-  (map! :map ruby-mode-map :localleader "d" 'rubocop-toggle-at-point)
-  (map! :mode ruby-mode-map :leader "=" #'rubocop-on-current-file))
+  (map! :map ruby-mode-map :localleader "d" 'rubocop-toggle-at-point))
 
 (after! ruby-mode
   (defun otavio/chomp (str)
@@ -2283,7 +2284,6 @@ Version 2015-06-08"
                  (concat (projectile-project-name)
                          ": "
                          (file-relative-name buffer-file-name doom-modeline--project-root))))
-            (org-store-link 64)
             (kill-new rpath)
             (message (concat "kill-ring save: " rpath) ))))
 
@@ -2481,6 +2481,10 @@ Set it to HEADING when provided."
 (map! :localleader
       :map ruby-mode-map
       "=" 'rubocop-on-current-file)
+
+(map! :mode ruby-mode-map :leader "=" #'(lambda () (interactive)
+                                          (evil-goto-line)
+                                          (call-interactively 'rubocop-on-current-file)))
 
 (remove-hook! '(org-mode-hook
                 markdown-mode-hook
